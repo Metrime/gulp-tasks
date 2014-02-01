@@ -1,0 +1,24 @@
+{
+	"dependencies":{
+		"gulp":"",
+		"gulp-concat":"",
+		"gulp-load-plugins":"",
+		"gulp-minify-html":"",
+		"gulp-inject":"",
+		"gulp-stylus":"",
+		"gulp-footer":"",
+		"gulp-autoprefixer":"",
+		"gulp-special-html":"",
+		"gulp-clean":"",
+		"random-id":"",
+		"gulp-rename":"",
+		"gulp-svgicons2svgfont":"",
+		"gulp-csso":"",
+		"gulp-uglify":"",
+		"gulp-imagemin":"",
+		"gulp-svgmin":"",
+		"gulp-size":"",
+		"gulp-filesize":"",
+		"gulp-download":""
+	}
+}
