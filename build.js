@@ -1,12 +1,12 @@
 //css
 
 gulp.task('build-css',function(){
-	var stream = gulp.src(['libs/css/*.styl','src/assets/**/*.styl','src/**/css/*.styl'])
+	var stream = gulp.src(config.cssSrc())
 	.pipe(g.footer('\n\n'))
 	.pipe(g.concat('style.css'))
 	.pipe(g.stylus())
 	.pipe(g.autoprefixer())
-	.pipe(gulp.dest(buildDestination+'/assets'));
+	.pipe(gulp.dest(config.build+'/assets'));
 	return stream;
 });
 
@@ -15,10 +15,10 @@ gulp.task('build-css',function(){
 //js
 
 gulp.task('build-js',function(){
-	var stream = gulp.src(['libs/js/*.js','src/**/js/*.js'])
+	var stream = gulp.src(config.jsSrc())
 	.pipe(g.footer(';'))
 	.pipe(g.concat('scripts.js'))
-	.pipe(gulp.dest(buildDestination+'/assets'));
+	.pipe(gulp.dest(config.build+'/assets'));
 	return stream;
 });
 
@@ -26,7 +26,7 @@ gulp.task('build-js',function(){
 //html
 
 gulp.task('combine-html',function(){
-	var stream = gulp.src(['src/config/header.html','src/**/views/*.html','src/**/templates/*.html','src/config/footer*.html'])
+	var stream = gulp.src(config.htmlSrc())
 	.pipe(g.concat('index.html'))
 	.pipe(g.specialHtml())
 	.pipe(gulp.dest('temp'));
@@ -34,10 +34,10 @@ gulp.task('combine-html',function(){
 });
 
 gulp.task('build-html',['build-css','build-js','combine-html'],function(){
-	gulp.src([buildDestination+'/assets/*.css',buildDestination+'/assets/*.js'],{read:false})
+	gulp.src([config.build+'/assets/*.css',config.build+'/assets/*.js'],{read:false})
 	.pipe(g.inject('temp/index.html'))
 	.pipe(g.minifyHtml())
-	.pipe(gulp.dest(buildDestination));
+	.pipe(gulp.dest(config.build));
 });
 
 
@@ -45,20 +45,20 @@ gulp.task('build-html',['build-css','build-js','combine-html'],function(){
 // assets
 
 gulp.task('build-assets',function(){
-	gulp.src(['src/assets/img/*'])
-	.pipe(gulp.dest(buildDestination+'/assets/img'));
+	gulp.src(config.imgSrc())
+	.pipe(gulp.dest(config.build+'/assets/img'));
 
-	gulp.src('src/assets/icons/*.svg')
+	gulp.src(config.iconSrc())
 	.pipe(g.svgicons2svgfont({fontName:'icons',appendCodepoints:true}))
-	.pipe(gulp.dest(buildDestination+'/assets/fonts/'));
+	.pipe(gulp.dest(config.build+'/assets/fonts/'));
 
-	gulp.src('src/assets/fonts/*')
-	.pipe(gulp.dest(buildDestination+'/assets/fonts/'));
+	gulp.src(config.fontSrc())
+	.pipe(gulp.dest(config.build+'/assets/fonts/'));
 });
 
 
 gulp.task('clean-build',function(){
-	var stream = gulp.src(buildDestination)
+	var stream = gulp.src(config.build)
 	.pipe(g.clean());
 	return stream;
 });

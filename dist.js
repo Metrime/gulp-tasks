@@ -1,10 +1,10 @@
 // css
 
 gulp.task('dist-css',function(){
-	var stream = gulp.src(buildDestination+'/assets/style.css')
+	var stream = gulp.src(config.build+'/assets/style.css')
 	.pipe(g.rename(randomID(20,'aA0')+'.css'))
 	.pipe(g.csso())
-	.pipe(gulp.dest(distDestination+'/assets'));
+	.pipe(gulp.dest(config.dist+'/assets'));
 	return stream;
 });
 
@@ -13,10 +13,10 @@ gulp.task('dist-css',function(){
 // js
 
 gulp.task('dist-js',function(){
-	var stream = gulp.src(buildDestination+'/assets/scripts.js')
+	var stream = gulp.src(config.build+'/assets/scripts.js')
 	.pipe(g.rename(randomID(20,'aA0')+'.js'))
 	.pipe(g.uglify())
-	.pipe(gulp.dest(distDestination+'/assets'));
+	.pipe(gulp.dest(config.dist+'/assets'));
 	return stream;
 });
 
@@ -25,10 +25,10 @@ gulp.task('dist-js',function(){
 // html
 
 gulp.task('dist-html',['dist-css','dist-js'],function(){
-	gulp.src([distDestination+'/assets/*.css',distDestination+'/assets/*.js'],{read:false})
+	gulp.src([config.dist+'/assets/*.css',config.dist+'/assets/*.js'],{read:false})
 	.pipe(g.inject('temp/index.html'))
 	.pipe(g.minifyHtml())
-	.pipe(gulp.dest(distDestination));
+	.pipe(gulp.dest(config.dist));
 });
 
 
@@ -36,19 +36,19 @@ gulp.task('dist-html',['dist-css','dist-js'],function(){
 // assets
 
 gulp.task('dist-assets',function(){
-	gulp.src([buildDestination+'/assets/img/*'])
+	gulp.src([config.build+'/assets/img/*'])
 	.pipe(g.imagemin())
-	.pipe(gulp.dest(distDestination+'/assets/img'));
+	.pipe(gulp.dest(config.dist+'/assets/img'));
 
-	gulp.src(buildDestination+'/assets/fonts/*.svg')
+	gulp.src(config.build+'/assets/fonts/*.svg')
 	.pipe(g.svgmin())
-	.pipe(gulp.dest(distDestination+'/assets/fonts/'));
+	.pipe(gulp.dest(config.dist+'/assets/fonts/'));
 });
 
 
 
 gulp.task('clean-dist',function(){
-	var stream = gulp.src(distDestination)
+	var stream = gulp.src(config.dist)
 	.pipe(g.clean());
 	return stream;
 });
@@ -57,4 +57,11 @@ gulp.task('clean-dist',function(){
 
 gulp.task('dist',['clean-dist'],function(){
 	gulp.start('dist-html','dist-assets');
+});
+
+
+
+gulp.task('dist-size',function(){
+	gulp.src([config.dist+'/**/*','!*.jpg','!*.png','!*.gif'])
+	.pipe(g.size());
 });

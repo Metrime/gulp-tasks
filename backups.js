@@ -19,22 +19,28 @@ function getTime(){
 
 
 gulp.task('backup-build',function(){
-	gulp.src(buildDestination+'/**/*')
+	gulp.src(config.build+'/**/*')
 	.pipe(gulp.dest('backups/build '+getDay()+' '+getTime()));
 });
 
 
 
 gulp.task('backup-src',function(){
-	gulp.src('src/**/*')
+	gulp.src(config.src+'/**/*')
 	.pipe(gulp.dest('backups/src '+getDay()+' '+getTime()));
 });
 
 
 
 gulp.task('backup-dist',function(){
-	gulp.src(distDestination+'/**/*')
+	gulp.src(config.dist+'/**/*')
 	.pipe(gulp.dest('backups/dist '+getDay()+' '+getTime()));
+});
+
+
+
+gulp.task('backup-all',function(){
+	gulp.start('backup-build','backup-src','backup-dist');
 });
 
 
