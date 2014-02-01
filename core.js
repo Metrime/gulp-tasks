@@ -5,27 +5,44 @@ var config = {
 	libs : "libs",
 
 	cssSrc : function(){ 
-		return [config.libs+'/css/*.styl',config.src+'/assets/**/*.styl',config.src+'/**/css/*.styl'];
+		return [
+			config.libs+'/css/*.styl',
+			config.src+'/assets/**/*.styl',
+			config.src+'/**/css/*.styl'
+		];
 	},
-
-	jsSrc : function(){ 
-		return [config.libs+'/js/*.js',config.src+'/**/js/*.js'];
-	},
-
 	htmlSrc : function(){ 
-		return [config.src+'/config/header.html',config.src+'/**/views/*.html',config.src+'/**/templates/*.html',config.src+'/config/footer*.html'];
+		return [
+			config.src+'/config/header.html',
+			config.src+'/**/views/*.html',
+			config.src+'/**/templates/*.html',
+			config.src+'/config/footer*.html'
+		];
 	},
 
-	imgSrc : function(){ 
-		return config.src+'/assets/img/*';
+	jsSrc : function(){ return [config.libs+'/js/*.js',config.src+'/**/js/*.js'] },
+	imgSrc : function(){ return config.src+'/assets/img/*' },
+	iconSrc : function(){ return config.src+'/assets/icons/*.svg' },
+	fontSrc : function(){ return config.src+'/assets/fonts/*' },
+
+	jsDownloads : {
+		DOM:false,
+		MVC:false,
+		ajax:false,
+		doT:true,
+		debounce:true,
+		hashString:true,
+		localStorage:true
 	},
 
-	iconSrc : function(){ 
-		return config.src+'/assets/icons/*.svg';
-	},
-
-	fontSrc : function(){
-		return config.src+'/assets/fonts/*';
+	jsDownloadSources:{
+		DOM:'',
+		MVC:'',
+		ajax:'',
+		doT:'https://raw.github.com/olado/doT/master/doT.min.js',
+		debounce:'https://raw.github.com/Metrime/js-utilities/master/debounce/debounce.js',
+		hashString:'https://raw.github.com/Metrime/js-utilities/master/hashString/hashString.js',
+		localStorage:'https://raw.github.com/Metrime/js-utilities/master/localStorage/localStorage.js'
 	}
 
 };
